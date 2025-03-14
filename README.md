@@ -1,40 +1,19 @@
-import hashlib
-import os
+# Duplicate Files Remover
+This script removes duplicate files in the directory where the script runs.
 
-# Returns the hash string of the given file name
+# Prerequisites
+No external libraries are used
+os
+hashlib
+# How to run the script
+Execute python3 duplicatefileremover.py
 
-
-def hashFile(filename):
-    # For large files, if we read it all together it can lead to memory overflow, So we take a blocksize to read at a time
-    BLOCKSIZE = 65536
-    hasher = hashlib.md5()
-    with open(filename, 'rb') as file:
-        # Reads the particular blocksize from file
-        buf = file.read(BLOCKSIZE)
-        while(len(buf) > 0):
-            hasher.update(buf)
-            buf = file.read(BLOCKSIZE)
-    return hasher.hexdigest()
+# Screenshot/GIF showing the sample use of the script
+ (https://github.com/user-attachments/assets/b403232e-0c97-429a-b0c6-b990cce0fa50)
 
 
-if _name_ == "_main_":
-    # Dictionary to store the hash and filename
-    hashMap = {}
+# Working
+The script first lists all the files in the directory. It takes MD5 hash of each file, when hash of 2 files become same it deletes the file.
 
-    # List to store deleted files
-    deletedFiles = []
-    filelist = [f for f in os.listdir() if os.path.isfile(f)]
-    for f in filelist:
-        key = hashFile(f)
-        # If key already exists, it deletes the file
-        if key in hashMap.keys():
-            deletedFiles.append(f)
-            os.remove(f)
-        else:
-            hashMap[key] = f
-    if len(deletedFiles) != 0:
-        print('Deleted Files')
-        for i in deletedFiles:
-            print(i)
-    else:
-        print('No duplicate files found')
+# Author Name
+https://github.com/anandhakrishnanaji
